@@ -1,6 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
+const { createClient } = require('@supabase/supabase-js');
+const supabaseUrl = 'https://fxbgzppsdbhxktnygyby.supabase.co'; // Replace with your Supabase URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Ymd6cHBzZGJoeGt0bnlneWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg3Njc3NDMsImV4cCI6MjA0NDM0Mzc0M30.WTqaS_oucgxJlDZtD25oeGxQp986MQYToRliiRaKcv0'; // Replace with your Supabase public API key
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const path = require('path');
 
 const app = express();
@@ -16,11 +21,6 @@ const pool = new Pool({
 });
 
 // Serve static files from the 'book web' directory
-app.get('/comments/prologue', async (req, res) => {
-    // Your logic to fetch comments for the prologue
-});
-
-
 app.use(express.static(path.join(__dirname, '..')));
 
 // Serve index.html for the root URL
