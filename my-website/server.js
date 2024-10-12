@@ -16,6 +16,10 @@ const pool = new Pool({
 });
 
 // Serve static files from the 'book web' directory
+app.get('/comments/prologue', async (req, res) => {
+    // Logic to fetch comments for the prologue
+});
+
 app.use(express.static(path.join(__dirname, '..')));
 
 // Serve index.html for the root URL
