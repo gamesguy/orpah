@@ -1,10 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
-const { createClient } = require('@supabase/supabase-js');
-const supabaseUrl = 'https://fxbgzppsdbhxktnygyby.supabase.co'; // Replace with your Supabase URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Ymd6cHBzZGJoeGt0bnlneWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg3Njc3NDMsImV4cCI6MjA0NDM0Mzc0M30.WTqaS_oucgxJlDZtD25oeGxQp986MQYToRliiRaKcv0'; // Replace with your Supabase public API key
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const path = require('path');
 
@@ -12,13 +8,14 @@ const app = express();
 app.use(bodyParser.json());
 
 // Configure PostgreSQL connection
+
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'commentsdb',
-    password: 'rerejosh123@',
-    port: 5432,
+  connectionString: 'postgresql://postgres:JNLGuyDpwCfLSumQhrltRWTHMNcEVLfV@autorack.proxy.rlwy.net:37089/railway'
 });
+
+pool.connect()
+  .then(() => console.log("Connected to Railway PostgreSQL"))
+  .catch(err => console.error("Connection error", err.stack));
 
 // Serve static files from the 'book web' directory
 app.use(express.static(path.join(__dirname, '..')));
