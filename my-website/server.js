@@ -1,14 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
-
 const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
 
 // Configure PostgreSQL connection
-
 const pool = new Pool({
   connectionString: 'postgresql://postgres:JNLGuyDpwCfLSumQhrltRWTHMNcEVLfV@autorack.proxy.rlwy.net:37089/railway'
 });
@@ -32,7 +30,7 @@ app.post('/comments/:chapter', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'INSERT INTO comments (chapter, name, content) VALUES ($1, $2, $3) RETURNING *',
+            'INSERT INTO comments (chapter, name, content, date) VALUES ($1, $2, $3, CURRENT_DATE) RETURNING *',
             [chapter, name, content]
         );
         res.json(result.rows[0]);
